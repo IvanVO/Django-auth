@@ -13,10 +13,15 @@ Below a user will be added to
 # The user will be added to the Customer group by default when a new account is created.
 def createUserProfile(sender, instance, created, **kwargs): # This is a reciver
     if created:
-        group = Group.object.get(name='Customer')
+        group = Group.objects.get(name='Customer')
         instance.groups.add(group)
 
-        Profile.ojects.create(user=instance, name=instance.username)
+        Profile.objects.create(
+            user=instance,
+            name=instance.username,
+            email=instance.email
+        )
+
         print("Profile succesffully created")
 
 post_save.connect(createUserProfile, sender=User)

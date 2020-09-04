@@ -9,7 +9,8 @@ from .forms import *
 
 def home(request):
 
-    return HttpResponse("Home Page")
+    context = {}
+    return render(request, "users/home.html", context)
 
 def registrationPage(request):
     # step 1 : Create form
@@ -56,3 +57,6 @@ def loginPage(request):
 
 
 # TODO: Add logout view
+def logout_user(request):
+    logout(request)
+    return redirect('/')
